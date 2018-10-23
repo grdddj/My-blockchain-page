@@ -7,20 +7,18 @@ function changeLanguage() {
       for (let i = 0; i < y.length; i++ ) {
         document.getElementsByClassName("language_chosen")[i].setAttribute("lang", "cz");
       }
-
   }
   else {
     for (let i = 0; i < y.length; i++ ) {
       document.getElementsByClassName("language_chosen")[i].setAttribute("lang", "en");
     }
   }
-
-
 }
 
 
 $(document).ready(function(){
-  $(".language").click(function(){
+  /*$(".language").click(function(){
     changeLanguage();
   });
+  */
 });
