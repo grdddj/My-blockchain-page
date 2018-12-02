@@ -4,13 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width"> <!-- setting the view on multiple devices -->
     <meta name="description" content="Web page about blockchain technology">
-    <meta name="keywords" content="blockchain, ethereum">
+    <meta name="keywords" content="blockchain, ethereum, bitcoin, programming, courses, Solidity">
     <meta name="author" content="Jiří Musil">
     <title>Musil Blockchain | Applications</title>
     <link rel="stylesheet" href="../css/style3.css"> <!-- connecting it with a CSS stylesheet -->
 
+
      <script type="text/javascript" src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
-     <script src="script.js"></script>
+     <script type="text/javascript" src="web3.min-v1.js"></script>
+        <script type="text/javascript" src="crowdEth.js"></script>
   </head>
   <body>
 
@@ -45,29 +47,91 @@
             <p><b>Functioning</b>: Everybody can create new project and determine the amount of money and the final date. Other people can send money to support these projects, and when they gather the needed amount before the final date, all the funds will be sent to the project. Otherwise they will be returned to users. </p>
             <p><b>Advantages</b>: Thanks to the absence of middleman, the project will receive all the funds gathered, without any fees for the platform. </p>
             <p><b>Disadvantages</b>: Nowadays the high volatility of cryptocurrencies can be a problem - however already some stable cryptocurrencies exist, pegged for example to USD. </p>
-            <p>------------------------------------------------------------------------------------------------------------------------------</p>
+            <hr>
             <br>
+
+            <div  style="text-align:center; padding: 10px;">
+
 
             <h2 >My ETH address: <span id="address"></span></h2>
 
-              <p>Name of the project: <input type="text" id="name" placeholder="Project name..."/> </p>
-              <p>Desired amount of ETH: <input type="number" id="amount" placeholder="Desired amount [ETH]..."/></p>
-              <p>Duration in hours: <input type="number" id="duration" placeholder="Duration [h]..."/></p>
-              <button id="register">Start financing the project!</button>
+            <p>Name of the project: <input type="text" id="name" placeholder="Project name..."/> </p>
+            <p>Desired amount of ETH: <input type="number" id="goal" placeholder="Desired amount [ETH]..."/></p>
+            <p>Duration in hours: <input type="number" id="duration" placeholder="Duration [hours]..."/></p>
+            <button id="create">Start financing the project!</button>
+            <br>
+            <br>
+            <p><b>List of active projects (<span id="amountActive"></span>):</b></p>
+            <table id="activeProjects">
+                <tr>
+              <th>Number</th>
+              <th>Name</th>
+              <th>Goal [ETH]</th>
+              <th>Left [ETH]</th>
+              <th>Expiration time [hours]</th>
+              <th>Owner</th>
+                </tr>
+            </table>
+            <br>
+            <br>
+            <p><b>List of successful past projects (<span id="amountSuc"></span>):</b> <button id="showSucFinished"><span id="showSuc">Show!</span></button></p>
+            <div id="finishedSuc" style="display: none;">
+              <table id="finishedSucProjects">
+                  <tr>
+                <th>Number</th>
+                <th>Name</th>
+                <th>Goal [ETH]</th>
+                <th>Owner</th>
+                  </tr>
+              </table>
+            </div>
 
-              <br>
-              <br>
-              <br>
-              <p>Choose the project you want to support:
-              <select name="projects">
-                <option value="one">Project 1</option>
-                <option value="two">Project 2</option>
-                <option value="three">Project 3</option>
-                <option value="four">Project 4</option>
-              </select>
-              </p>
-              <p>How much ETH you want to donate: <input type="number" id="amount" placeholder="Your donation [ETH]..."/></p>
-              <button id="donate">Donate!</button>
+            <br>
+            <p><b>List of unsuccessful past projects (<span id="amountUnsuc"></span>):</b> <button id="showUnsucFinished"><span id="showUnsuc">Show!</span></button></p>
+            <div id="finishedUnsuc" style="display: none;">
+              <table id="finishedUnsucProjects">
+                  <tr>
+                <th>Number</th>
+                <th>Name</th>
+                <th>Goal [ETH]</th>
+                <th>Received [ETH]</th>
+                <th>Expiration time [hours ago]</th>
+                <th>Owner</th>
+                  </tr>
+              </table>
+            </div>
+
+
+            <br>
+            <p>Choose the project you want to support:
+            <select id="projectSelect">
+
+            </select>
+            </p>
+            <p>How much ETH you want to donate: <input type="number" id="amount" placeholder="Your donation [ETH]..."/></p>
+            <button id="donate">Donate!</button>
+
+            <br>
+            <br>
+            <br>
+            <p>Choose the project you want to withdraw (only creator):
+            <select id="finishedSucProjectSelect">
+
+            </select>
+            </p>
+            <button id="withdraw">Withdraw the money!</button>
+            <br>
+            <br>
+
+            <p>Choose the project you want to get refunded (only who contributed):
+            <select id="finishedUnsucProjectSelect">
+
+            </select>
+            </p>
+            <button id="refund">Get the money refunded!</button>
+
+            </div>
+
 
 
           </article>

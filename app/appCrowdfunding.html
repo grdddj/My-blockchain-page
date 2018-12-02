@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width"> <!-- setting the view on multiple devices -->
     <meta name="description" content="Web page about blockchain technology">
-    <meta name="keywords" content="blockchain, ethereum">
+    <meta name="keywords" content="blockchain, ethereum, bitcoin, programování, kurzy, Solidity">
     <meta name="author" content="Jiří Musil">
     <title>Musil Blockchain | Aplikace</title>
     <link rel="stylesheet" href="../css/style3.css"> <!-- connecting it with a CSS stylesheet -->
 
      <script type="text/javascript" src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
-     <script src="script.js"></script>
+     <script type="text/javascript" src="web3.min-v1.js"></script>
+    <script type="text/javascript" src="crowdEth.js"></script>
   </head>
   <body>
 
@@ -43,30 +44,90 @@
             <p><b>Fungování</b>: Kdokoliv může založit nový projekt, určit cílovou částku a datum, do kdy sbírka potrvá. Ostatní uživatelé potom mohou na libovolný z těchto projektů přispívat, a bude-li před konečným termínem vybrána cílová částka, odešle se na účet projektu. V opačném případě jsou peníze automaticky vráceny uživatelům. </p>
             <p><b>Výhody</b>: Díky absenci zprostředkovatele obdrží projekt opravdu všechny vybrané peníze, bez jakýchkoliv poplatků platformě.   </p>
             <p><b>Nevýhody</b>: V současné době může být problémem vyšší cenová volatilita kryptoměn - existují už ale i kryptoměny udržující stabilní hodnotu například vůči dolaru. </p>
-            <p>------------------------------------------------------------------------------------------------------------------------------</p>
+            <hr>
             <br>
-             <h2 >Moje ETH adresa: <span id="address"></span></h2>
 
-              <p>Název projektu: <input type="text" id="name" placeholder="Název projektu..."/> </p>
-              <p>Cílová částka v ETH: <input type="number" id="amount" placeholder="Cílová částka [ETH]..."/></p>
-              <p>Doba trvání sbírky v hodinách: <input type="number" id="duration" placeholder="Doba trvání [h]..."/></p>
-              <button id="register">Založit financování projektu!</button>
-
-              <br>
-              <br>
-              <br>
-              <p>Vyberte projekt, který chcete podpořit:
-              <select name="projects">
-                <option value="one">Projekt 1</option>
-                <option value="two">Projekt 2</option>
-                <option value="three">Projekt 3</option>
-                <option value="four">Projekt 4</option>
-              </select>
-              </p>
-              <p>Kolik ETH chcete přispět: <input type="number" id="amount" placeholder="Váš příspěvek [ETH]..."/></p>
-              <button id="donate">Přispějte!</button>
+            <div  style="text-align:center; padding: 10px;">
 
 
+                        <h2 >Moje Ethereová adresa: <span id="address"></span></h2>
+
+                        <p>Jméno projektu: <input type="text" id="name" placeholder="Jméno projektu..."/> </p>
+                        <p>Požadovaná částka v ETH: <input type="number" id="goal" placeholder="Požadovaná částka [ETH]..."/></p>
+                        <p>Doba trvání v hodinách: <input type="number" id="duration" placeholder="Doba trvání [hod]..."/></p>
+                        <button id="create">Začít financovat projekt!</button>
+                        <br>
+                        <br>
+                        <p><b>Seznam aktivních projektů (<span id="amountActive"></span>):</b></p>
+                        <table id="activeProjects">
+                            <tr>
+                          <th>Číslo</th>
+                          <th>Jméno</th>
+                          <th>Cíl [ETH]</th>
+                          <th>Zbývá [ETH]</th>
+                          <th>Čas do konce [hod]</th>
+                          <th>Vlastník</th>
+                            </tr>
+                        </table>
+                        <br>
+                        <br>
+                        <p><b>Seznam úspěšných projektů (<span id="amountSuc"></span>):</b> <button id="showSucFinished"><span id="showSuc">Show!</span></button></p>
+                        <div id="finishedSuc" style="display: none;">
+                          <table id="finishedSucProjects">
+                              <tr>
+                            <th>Číslo</th>
+                            <th>Jméno</th>
+                            <th>Cíl [ETH]</th>
+                            <th>Vlastník</th>
+                              </tr>
+                          </table>
+                        </div>
+
+                        <br>
+                        <p><b>Seznam neúspěšných projektů (<span id="amountUnsuc"></span>):</b> <button id="showUnsucFinished"><span id="showUnsuc">Show!</span></button></p>
+                        <div id="finishedUnsuc" style="display: none;">
+                          <table id="finishedUnsucProjects">
+                              <tr>
+                            <th>Číslo</th>
+                            <th>Jméno</th>
+                            <th>Cíl [ETH]</th>
+                            <th>Obdrženo [ETH]</th>
+                            <th>Čas vypršení [hod]</th>
+                            <th>Vlastník</th>
+                              </tr>
+                          </table>
+                        </div>
+
+
+                        <br>
+                        <p>Vyberte projekt, který chcete podpořit:
+                        <select id="projectSelect">
+
+                        </select>
+                        </p>
+                        <p>Kolik ETH chcete přispět: <input type="number" id="amount" placeholder="Váš příspěvek [ETH]..."/></p>
+                        <button id="donate">Podpořit!</button>
+
+                        <br>
+                        <br>
+                        <br>
+                        <p>Vyberte prostředky z úspěšného projektu (pouze vlasník):
+                        <select id="finishedSucProjectSelect">
+
+                        </select>
+                        </p>
+                        <button id="withdraw">Vybrat prostředky!</button>
+                        <br>
+                        <br>
+
+                        <p>Vyberte neúspěšný projekt, ze kterého chcete získat prostředky zpět (pouze kdo přispěl):
+                        <select id="finishedUnsucProjectSelect">
+
+                        </select>
+                        </p>
+                        <button id="refund">Dostat prostředky zpět!</button>
+
+                      </div>
 
 
 
