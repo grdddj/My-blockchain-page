@@ -13,49 +13,46 @@
      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script><script type="text/javascript" src="https://blockchain.info/Resources/js/pay-now-button.js"></script>
 
 
-     <script>
-     var tipButton = document.querySelector('.tip-button')
-     tipButton.addEventListener('click', function() {
-  if (typeof web3 === 'undefined') {
-    return alert('You need to install MetaMask to use this feature.')
-  }
-  var user_address = web3.eth.accounts[0];
-  if (typeof user_address === 'undefined') {
-    return alert('You need to log in MetaMask to use this feature.')
-  }
-  web3.eth.sendTransaction({
-    to: "0x74DF6E6d1381667Da07d1B3E7e441Cce7360035e",
-    from: user_address,
-    value: web3.toWei('0.005', 'ether'),
-  }, function (err, transactionHash) {
-    if (err) return alert('Thanks for trying out!');
-    alert('Thanks for the generosity!!');
-  })
-})
-</script>
+     <style media="screen">
+     .tip-button {
+       width: 304px;
+       height: 89px;
+       background-size: 100%;
+       background-image: url('../img/3_pay_mm_over.png');
+       cursor: pointer;
+     }
 
+     .tip-button:hover {
+       background-image: url('../img/6_pay_mm_over.png');
+     }
+     </style>
+
+     <script>
+        var tipButton = document.querySelector('.tip-button')
+        tipButton.addEventListener('click', function() {
+           if (typeof web3 === 'undefined') {
+             return alert('You need to install MetaMask to use this feature.')
+           }
+           var user_address = web3.eth.accounts[0];
+           if (typeof user_address === 'undefined') {
+             return alert('You need to log in MetaMask to use this feature.')
+           }
+           web3.eth.sendTransaction({
+             to: "0x74DF6E6d1381667Da07d1B3E7e441Cce7360035e",
+             from: user_address,
+             value: web3.toWei('0.005', 'ether'),
+           }, function (err, transactionHash) {
+             if (err) return alert('Thanks for trying out!');
+             alert('Thanks for the generosity!!');
+           })
+         })
+     </script>
 
   </head>
   <body>
 
     <header>
-      <div class="container">
-        <div id="branding">
-          <h1><span class="highlight">Musil Blockchain</span></h1>
-        </div>
-        <nav>
-          <ul>
-
-            <li class="cz"><a href="../index.html">Domů</a></li>
-            <li class="cz"><a href="../about.html">O mně</a></li>
-            <li class="cz "><a href="../sources.html">Zdroje</a></li>
-            <li class="cz"><a href="../services.html">Služby</a></li>
-            <li class="cz"><a href="../articles.html">Články</a></li>
-            <li class="cz current"><a href="../applications.html">Aplikace</a></li>
-            <li class="cz language"><a href="appTipEng.html"><img src="../img/gb.png" alt="Switch into english" width="58" height="42"></a> </li>
-          </ul>
-        </nav>
-      </div>
+        <!-- TO BE FILLED BY SCRIPT -->
     </header>
 
     <section id="main">
@@ -102,50 +99,22 @@
 
           </article>
 
-                    <aside id="sidebar">
-                      <div class="dark">
-
-                        <h3 class="cz">Příklady konkrétních aplikací</h3>
-                          <div class="">
-
-                          </div>
-
-
-                            <h3 class="cz orange"><a href="./appContent.html" style="color:#e8491d">Blockchainové zpřístupňování obsahu</a></h3>
-
-                            <h3 class="cz orange"><a href="./appCrowdfunding.html" style="color:#e8491d">Blockchainové financování projektů</a></h3>
-
-                            <h3 class="cz orange"><a href="./appAuction.html" style="color:#e8491d">Blockchainová aukce</a></h3>
-
-                            <h3 class="cz orange"><a href="./appRoulette.html" style="color:#e8491d">Blockchainová ruleta</a></h3>
-
-                            <h3 class="cz orange"><a href="./appPocket.html" style="color:#e8491d">Blockchainové kapesné</a></h3>
-
-                            <h3 class="cz orange"><a href="./appTip.html" style="color:#ffffff">Blockchainové spropitné</a></h3>
-
-                            <h3 class="cz orange"><a href="./appReceivingCC.html" style="color:#e8491d">Blockchainové přijímání plateb</a></h3>
-
-                            <h3 class="cz orange"><a href="./appSwap.html" style="color:#e8491d">Blockchainová směnárna</a></h3>
-
-                            <h3 class="cz orange"><a href="./appDigitalSignatures.html" style="color:#e8491d">Blockchainová autentikace a autorizace</a></h3>
-
-                            <h3 class="cz orange"><a href="./appMultisignature.html" style="color:#e8491d">Blockchainové smlouvy</a></h3>
-
-                            <h3 class="cz orange"><a href="./appElections.html" style="color:#e8491d">Blockchainové volby</a></h3>
-
-                          </div>
-
-                      </div>
-                    </aside>
-                </div>
-
+          <aside id="sidebar">
+            <!-- TO BE FILLED BY SCRIPT -->
+          </aside>
+        </div>
 
     </section>
 
     <footer>
-      <p>Jiří Musil, Copyright &copy; 2018</p>
+      <!-- TO BE FILLED BY SCRIPT -->
     </footer>
 
-
   </body>
+
+  <!-- SCRIPTS RESPONSIBLE FOR FILLING THE COMMON INFO -->
+  <script type="text/javascript" src="header.js"></script>
+  <script type="text/javascript" src="sidebar.js"></script>
+  <script type="text/javascript" src="footer.js"></script>
+
 </html>
