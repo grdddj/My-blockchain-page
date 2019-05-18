@@ -9,17 +9,6 @@ body{
   background-color: #f4f4f4;
 }
 
-/* Language settings */
-/*
-.en, .cz {
-  display:none;
-}
-
-.en:lang(en), .cz:lang(cz) {
-  display:block;
-}
-*/
-
 /*about */
 #main-col {
   text-align: justify;
@@ -57,7 +46,7 @@ td, th {
   background: #e8491d;
   border: 0;
   padding-left: 20px;
-  padding-right: 20px;
+  /* padding-right: 20px; */
   color: #ffffff;
 }
 
@@ -67,6 +56,10 @@ td, th {
   color: #ffffff;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.form{
+
 }
 
 
@@ -185,7 +178,6 @@ header a:hover{
 
 
 /* Sidebar */
-
 aside#sidebar{
   float: right;
   width: 30%;
@@ -203,9 +195,7 @@ article#main-col{
   width: 65%;
 }
 
-
 /* Services  */
-
 ul#services li{
   list-style: none;
   padding: 20px;
@@ -214,12 +204,7 @@ ul#services li{
   background: #e6e6e6;
 }
 
-
-
-
-
 /* Footer */
-
 footer{
   padding: 20px;
   margin-top: 20px;
@@ -245,9 +230,6 @@ footer{
 .tip-button:hover {
   background-image: url('../img/6_pay_mm_over.png');
 }
-
-
-
 
 /* MEDIA QUERIES */
 @media(max-width: 768px){
@@ -284,7 +266,4 @@ footer{
     width: 100%;
     margin-bottom: 5px;
   }
-
-
-
 }
