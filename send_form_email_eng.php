@@ -32,12 +32,6 @@ if(isset($_POST['email'])) {
     $error_message .= 'The Email Address you entered does not appear to be valid.<br />';
   }
 
-    $string_exp = "/^[A-Za-z .'-]+$/";
-
-  if(!preg_match($string_exp,$name)) {
-    $error_message .= 'The First Name you entered does not appear to be valid.<br />';
-  }
-
   if(strlen($message) < 2) {
     $error_message .= 'The message you entered do not appear to be valid.<br />';
   }
@@ -55,7 +49,7 @@ if(isset($_POST['email'])) {
 
     $email_message .= "Name: ".clean_string($name)."\n";
     $email_message .= "Email: ".clean_string($email_from)."\n";
-    $email_message .= "message: ".clean_string($message)."\n";
+    $email_message .= "Message: ".clean_string($message)."\n";
 
 // create email headers
 $headers = 'From: '.$email_from."\r\n".

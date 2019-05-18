@@ -32,21 +32,15 @@ if(isset($_POST['email'])) {
     $error_message .= 'Vámi zadaná emailová adresa není platná.<br />';
   }
 
-    $string_exp = "/^[A-Za-z .'-]+$/";
-
-  if(!preg_match($string_exp,$name)) {
-    $error_message .= 'Jméno, které jste zadali, není platné.<br />';
-  }
-
   if(strlen($message) < 2) {
-    $error_message .= 'Zpráva, kterou jste zadani, není platná.<br />';
+    $error_message .= 'Zpráva, kterou jste zadali, není platná.<br />';
   }
 
   if(strlen($error_message) > 0) {
     died($error_message);
   }
 
-    $email_message = "Detaily formuláře níže.\n\n";
+    $email_message = "Detaily formulare nize.\n\n";
 
     function clean_string($string) {
       $bad = array("content-type","bcc:","to:","cc:","href");
@@ -55,7 +49,7 @@ if(isset($_POST['email'])) {
 
     $email_message .= "Name: ".clean_string($name)."\n";
     $email_message .= "Email: ".clean_string($email_from)."\n";
-    $email_message .= "message: ".clean_string($message)."\n";
+    $email_message .= "Message: ".clean_string($message)."\n";
 
 // create email headers
 $headers = 'From: '.$email_from."\r\n".
