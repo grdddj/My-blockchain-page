@@ -44,3 +44,18 @@ if (document.documentElement.lang === "cz") {
 } else {
   header.innerHTML = englishHeader;
 }
+
+// Making sure that switching the language will point at the same app-page
+const header_url = window.location.pathname;
+const header_filename = header_url.substring(header_url.lastIndexOf('/')+1);
+const header_filenameWithoutSuffix = header_filename.split(".")[0];
+
+let header_newFilename;
+if (header_filenameWithoutSuffix.endsWith("Eng")) {
+  header_newFilename = header_filenameWithoutSuffix.slice(0, header_filenameWithoutSuffix.length - 3) + ".html"
+} else {
+  header_newFilename = header_filenameWithoutSuffix + "Eng.html"
+}
+
+const header_el = header.getElementsByClassName("language")[0];
+header_el.children[0].setAttribute("href", header_newFilename);
