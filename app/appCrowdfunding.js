@@ -347,23 +347,23 @@ async function getProject(x) {
 
 // Toggling the table view of successfully-finished projects
 function toggleSuccessfulProjects() {
-  if (document.getElementById("showSuc").innerHTML == "Hide!") {
+  if (document.getElementById("showSuc").innerHTML == "Skrýt!") {
     $("#finishedSuc").hide();
-    $("#showSuc").html("Show!");
+    $("#showSuc").html("Rozbalit!");
   } else {
     $("#finishedSuc").show();
-    $("#showSuc").html("Hide!");
+    $("#showSuc").html("Skrýt!");
   }
 }
 
 // Toggling the table view of unsuccessfully-finished projects
 function toggleUnsuccessfulProjects() {
-  if (document.getElementById("showUnsuc").innerHTML == "Hide!") {
+  if (document.getElementById("showUnsuc").innerHTML == "Skrýt!") {
     $("#finishedUnsuc").hide();
-    $("#showUnsuc").html("Show!");
+    $("#showUnsuc").html("Rozbalit!");
   } else {
     $("#finishedUnsuc").show();
-    $("#showUnsuc").html("Hide!");
+    $("#showUnsuc").html("Skrýt!");
   }
 }
 
