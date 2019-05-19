@@ -36,6 +36,10 @@ td, th {
   overflow: hidden;
 }
 
+.comment{
+  margin-left: 20px;
+}
+
  ul{
   margin: 0;
   padding: 0;
@@ -198,7 +202,7 @@ article#main-col{
 /* Services  */
 ul#services li{
   list-style: none;
-  padding: 20px;
+  padding: 0px 20px;
   border: #cccccc solid 2px;
   margin-bottom: 5px;
   background: #e6e6e6;
