@@ -26,40 +26,55 @@ async function initialiseBlockchainConnection() {
   }
 }
 
-// Finds out the current active ETH address
+// Finds out the current active ETH address  of the user
+// If user is not connected (f.e. in Metamask), remind him of that
 async function getETHAddress() {
   try {
     const accounts = await web3.eth.getAccounts();
     const address = accounts[0].toString();
     $("#address").css("color", "black");
     $("#address").html(address);
+    $("#noMetamask").hide();
   } catch (e) {
     $("#address").css("color", "red");
     $("#address").html("Please login into Metamask");
+    $("#noMetamask").show();
   }
 }
 
-// Sends a request to a smart contract to buy a specified coin
+// Tries to connect with a given contract and with a local ETH account
+// When unsuccessful, return null values, which will be handled afterwards
+async function connectWithContractAndAccounts(contractABI, contractAddress) {
+  try {
+    const contract = await new web3.eth.Contract(
+      JSON.parse(contractABI),
+      contractAddress
+    );
+    const accounts = await web3.eth.getAccounts();
+
+    return [contract, accounts]
+  } catch (e) {
+    return [undefined, undefined]
+  }
+}
+
+// Sending a request to a smart contract to buy a specified coin
 async function buy(coinSymbol) {
   // Assigning the right method depending on the coin user want to buy
   const functionToBeCalled = `getAccess${coinSymbol}Coin`;
 
+  // Showing the loaders and hiding the content
   const loaderTX = $("#loaderTX");
   const content = $("#registered");
 
   loaderTX.show();
   content.hide();
 
-  // Initialising the contract connection through Web3
-  // If the connection cannot be set up, notify the user
-  try {
-    const contract = await new web3.eth.Contract(
-      JSON.parse(contractABI),
-      contractAddress
-    );
-
-    const accounts = await web3.eth.getAccounts();
-  } catch (e) {
+  // Initialising the contract and account connection through Web3
+  // If the connection cannot be set up, notify the user and stop the function
+  // BEWARE: the function we are calling is asynchronous, therefore the keyword "await"
+  let [contract, accounts] = await connectWithContractAndAccounts(contractABI, contractAddress);
+  if (contract === undefined) {
     alert("You are not connected to the ETH blockchain!");
     loaderTX.hide();
     content.show();
@@ -69,7 +84,9 @@ async function buy(coinSymbol) {
   // Calling the specified method on the smart contract
   try {
     contract.methods.functionToBeCalled()
-    .send({ from: accounts[0], gas: "300000", gasPrice: "5000000000"})
+    // Sending the transaction
+    .send({from: accounts[0], gas: "300000", gasPrice: "5000000000"})
+    // Receiving the transaction hash (immediately after sending)
     .on('transactionHash', function(hash) {
       console.log ('hash', hash);
     })
@@ -80,6 +97,7 @@ async function buy(coinSymbol) {
       // Updating the information about accessible content
       updateAccessibleContent();
     })
+    // Handling the error - asking user if he is on the right account
     .on('error', function(error) {
       $("#error").html('error - Is MetaMask set to the correct address ' + accounts[0]);
     })
@@ -100,17 +118,21 @@ async function updateAccessibleContent() {
   loaderTX.show();
   content.hide();
 
+  // Initialising the contract and account connection through Web3
+  // If the connection cannot be set up stop the function
+  // (The user is not notified with alert, because this function is called even without his action)
+  let [contract, accounts] = await connectWithContractAndAccounts(contractABI, contractAddress) ;
+  if (contract === undefined) {
+    loaderTX.hide();
+    content.show();
+    return;
+  }
+
   try {
-    const contract = await new web3.eth.Contract(
-      JSON.parse(contractABI),
-      contractAddress
-    );
-
-    const accounts = await web3.eth.getAccounts();
-
     contract.methods.getAllAccessRights(accounts[0])
     .call({from: accounts[0]})
     .then(function(results) {
+      // We have received information from blockchain, now we can parse them
       $("#myTokens").html("");
       $("#myArticles").html("");
 
@@ -146,14 +168,16 @@ async function updateAccessibleContent() {
   }
 }
 
-
 // This gets executed after the page fully loads
 $(document).ready(function () {
+  // Setting the blockchain connetion
   initialiseBlockchainConnection();
 
+  // Identifying the user and showing his current accesses
   getETHAddress();
   updateAccessibleContent();
 
+  // Event listeners for they buy() function, allowing for purchasing the access
   $("#buyA").click(function () {
     buy("A");
   });
