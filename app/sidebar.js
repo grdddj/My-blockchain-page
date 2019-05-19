@@ -46,7 +46,17 @@ if (document.documentElement.lang === "cz") {
 // BE AWARE: if there is more scripts using the URL of Filename, it will throw
 //   an error! Rather declare variables in these rendering scripts specifically to each script
 const sidebar_url = window.location.pathname;
-const sidebar_filename = sidebar_url.substring(sidebar_url.lastIndexOf('/')+1);
+let sidebar_filename = sidebar_url.substring(sidebar_url.lastIndexOf('/')+1);
+
+const sidebar_filenameWithoutHTML = sidebar_filename.split(".")[0];
+
+// Making sure the highlighting will correspond even for the code-review pages
+// Removing the suffixes from the code-review pages names
+if (sidebar_filenameWithoutHTML.endsWith("ContractCode")) {
+  sidebar_filename = sidebar_filenameWithoutHTML.slice(0, sidebar_filenameWithoutHTML.length - "ContractCode".length) + ".html";
+} else if (sidebar_filenameWithoutHTML.endsWith("Web3Code")) {
+  sidebar_filename = sidebar_filenameWithoutHTML.slice(0, sidebar_filenameWithoutHTML.length - "Web3Code".length) + ".html";
+}
 
 const sidebar_el = document.getElementsByName(sidebar_filename)[0];
 sidebar_el.children[0].setAttribute("style", "color:#ffffff");
