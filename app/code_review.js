@@ -23,7 +23,7 @@ if (code_review !== null && code_review !== undefined) {
   const code_review_url = window.location.pathname;
   const code_review_filename = code_review_url.substring(code_review_url.lastIndexOf('/')+1);
   const code_review_filenameWithoutHTML = code_review_filename.split(".")[0]
-  const code_review_filename_smart_contract = code_review_filenameWithoutHTML + ".txt";
+  const code_review_filename_smart_contract = code_review_filenameWithoutHTML + ".sol";
   const code_review_filename_web3 = code_review_filenameWithoutHTML + ".js";
 
   document.getElementsByName("smart_contract_code")[0].setAttribute("href", code_review_filename_smart_contract);
